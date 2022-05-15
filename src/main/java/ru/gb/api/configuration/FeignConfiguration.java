@@ -9,6 +9,8 @@ import ru.gb.api.category.api.CategoryGateway;
 import ru.gb.api.manufacturer.api.ManufacturerGateway;
 import ru.gb.api.order.api.OrderGateway;
 import ru.gb.api.product.api.ProductGateway;
+import ru.gb.gb.api.security.api.AuthenticationUserGateway;
+import ru.gb.gb.api.security.api.UserGateway;
 
 
 @Configuration
@@ -39,5 +41,16 @@ public class FeignConfiguration {
     public OrderGateway orderGateway() {
         return feignClientFactory.newFeignClient(OrderGateway.class, gbApiProperties.getEndpoint().getOrderUrl());
     }
+
+    @Bean
+    public UserGateway userGateway(){
+        return feignClientFactory.newFeignClient(UserGateway.class, gbApiProperties.getEndpoint().getUserUrl());
+    }
+
+    @Bean
+    public AuthenticationUserGateway authenticationUserGateway(){
+        return feignClientFactory.newFeignClient(AuthGateway.class, gbApiProperties.getEndpoint().getAuthUrl());
+    }
+
 
 }

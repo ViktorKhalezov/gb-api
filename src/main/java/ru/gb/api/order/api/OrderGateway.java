@@ -11,16 +11,16 @@ public interface OrderGateway {
 
 
     @GetMapping
-    List<OrderDto> getOrderList();
+    List<OrderDto> getOrderList(@CookieValue(value = "jwt") String jwt);
 
     @GetMapping("/{orderId}")
-    ResponseEntity<?> getOrder(@PathVariable("orderId") Long id);
+    ResponseEntity<OrderDto> getOrder(@PathVariable("orderId") Long id);
 
     @PostMapping
-    ResponseEntity<?> handlePost(@Validated @RequestBody OrderDto orderDto);
+    ResponseEntity<OrderDto> handlePost(@Validated @RequestBody OrderDto orderDto, @CookieValue(value = "jwt")  String jwt);
 
     @PutMapping("/{orderId}")
-    ResponseEntity<?> handleUpdate(@PathVariable("orderId") Long id,
+    ResponseEntity<OrderDto> handleUpdate(@PathVariable("orderId") Long id,
                                           @Validated @RequestBody OrderDto orderDto);
 
     @DeleteMapping("/{orderId}")
